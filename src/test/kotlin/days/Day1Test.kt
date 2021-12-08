@@ -13,7 +13,8 @@ class Day1Test {
     @DisplayName("Part 1")
     inner class Part1 {
         @TestFactory
-        fun shouldResultInCorrectFloor() = listOf(
+        @DisplayName("Santa should arrive at floor")
+        fun shouldArriveAtFloor() = listOf(
             "(())" to 0,
             "()()" to 0,
             "(((" to 3,
@@ -25,7 +26,7 @@ class Day1Test {
             ")())())" to -3,
             ") ( ) )( ))   " to -3
         ).mapIndexed() { x, (parentheses, floor) ->
-            DynamicTest.dynamicTest("""Example ${x + 1}: $parentheses should result in floor $floor" """) {
+            DynamicTest.dynamicTest("""Example ${x + 1}: $parentheses should arrive at floor $floor" """) {
                 assertThat(Day1(parentheses).partOne()).isEqualTo(floor)
             }
         }
@@ -35,7 +36,8 @@ class Day1Test {
     @DisplayName("Part 2")
     inner class Part2 {
         @TestFactory
-        fun shouldResultInCorrectAt() = listOf(
+        @DisplayName("Santa should enter the basement at move")
+        fun shouldEnterBasementAtMove() = listOf(
             ")" to 1,
             "()())" to 5,
             "() () )" to 5,
@@ -47,9 +49,9 @@ class Day1Test {
             "((((((((((()))))))))))" to -1,
             "((((((((((())))))))))))" to 23,
 
-        ).mapIndexed() { x, (parentheses, floor) ->
-            DynamicTest.dynamicTest("Example ${x + 1}: $parentheses should result in floor $floor") {
-                assertThat(Day1(parentheses).partTwo()).isEqualTo(floor)
+        ).mapIndexed() { x, (parentheses, index) ->
+            DynamicTest.dynamicTest("""Example ${x + 1}: "$parentheses" should enter basement at index $index""") {
+                assertThat(Day1(parentheses).partTwo()).isEqualTo(index)
             }
         }
     }

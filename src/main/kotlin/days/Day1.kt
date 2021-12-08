@@ -6,18 +6,21 @@ package days
     date = Date(day = 1, year = 2015)
 )
 class Day1(private val parentheses: String) : Puzzle {
-    override fun partOne() =
-        parentheses.fold(0, Int::upDownByChar)
 
-    override fun partTwo() =
-        parentheses.runningFold(0, Int::upDownByChar)
-            .indexOfFirst { floor -> floor == -1 }
+    override fun partOne() = parentheses
+        .fold(0, ::upDownByChar)
 
-}
+    override fun partTwo() = parentheses
+        .filter { it in "()" }
+        .runningFold(0, ::upDownByChar)
+        .indexOfFirst { it < 0 }
 
-private fun Int.upDownByChar(c: Char) =
-    this + when (c) {
-        '(' -> +1
-        ')' -> -1
-        else -> 0
+    companion object {
+        private fun upDownByChar(floor: Int, c: Char) =
+            floor + when (c) {
+                '(' -> +1
+                ')' -> -1
+                else -> 0
+            }
     }
+}

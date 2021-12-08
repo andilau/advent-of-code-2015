@@ -1,17 +1,23 @@
 # Advent of Code 2015
 
-This project contains my solutions for the [Advent of Code 2015](https://adventofcode.com/2015) in [Kotlin](https://kotlinlang.org/). 
-Advent of Code is an Advent calendar of small programming puzzles by [Eric Wastl](http://was.tl/).
+This project contains my solutions for the [Advent of Code 2015](https://adventofcode.com/2015)
+in [Kotlin](https://kotlinlang.org/). Advent of Code is an Advent calendar of small programming puzzles
+by [Eric Wastl](http://was.tl/).
 
-### Features
+## Solutions
+
+- Day 1: [Not Quite Lisp](https://adventofcode.com/2015/day/1)
+
+## Features
 
 * Gradle setup so you can run a specific day or all days on the command line (see **Running**)
 * Timings for each part of each day
 * Input for each day automatically exposed in String and List form
-* [Junit 5](https://junit.org/junit5/) and [AssertJ](https://assertj.github.io/doc/) test libraries included (see **Testing**)
+* [Junit 5](https://junit.org/junit5/) and [AssertJ](https://assertj.github.io/doc/) test libraries included (see **
+  Testing**)
 * Starter .gitignore
 
-### Running
+## Running
 
 Project is already setup with gradle. To run the app:
 

@@ -2,10 +2,12 @@ package `2015`
 
 import days.Day2
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.TestFactory
 
+@DisplayName("Day 2")
 class Day2Test {
     @Nested
     inner class Part1 {

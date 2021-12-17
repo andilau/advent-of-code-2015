@@ -1,6 +1,5 @@
-package `2015`
+package days
 
-import days.Day1
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
@@ -25,7 +24,7 @@ class Day1Test {
             ")))" to -3,
             ")())())" to -3,
             ") ( ) )( ))   " to -3
-        ).mapIndexed() { x, (parentheses, floor) ->
+        ).mapIndexed { x, (parentheses, floor) ->
             DynamicTest.dynamicTest("""Example ${x + 1}: $parentheses should arrive at floor $floor" """) {
                 assertThat(Day1(parentheses).partOne()).isEqualTo(floor)
             }
@@ -49,7 +48,7 @@ class Day1Test {
             "((((((((((()))))))))))" to -1,
             "((((((((((())))))))))))" to 23,
 
-        ).mapIndexed() { x, (parentheses, index) ->
+        ).mapIndexed { x, (parentheses, index) ->
             DynamicTest.dynamicTest("""Example ${x + 1}: "$parentheses" should enter basement at index $index""") {
                 assertThat(Day1(parentheses).partTwo()).isEqualTo(index)
             }

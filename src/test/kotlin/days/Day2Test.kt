@@ -1,6 +1,5 @@
-package `2015`
+package days
 
-import days.Day2
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
@@ -16,7 +15,7 @@ class Day2Test {
             "2x3x4" to 58,
             "1x1x10" to 43,
         )
-            .mapIndexed() { x, (dimensions, area) ->
+            .mapIndexed { x, (dimensions, area) ->
                 DynamicTest.dynamicTest("${x + 1}: Dimensions $dimensions require $area square feet of wrapping paper") {
                     assertThat(Day2.Box.from(dimensions).areaWithExtra()).isEqualTo(area)
                 }
@@ -30,7 +29,7 @@ class Day2Test {
             "2x3x4" to 34,
             "1x1x10" to 14,
         )
-            .mapIndexed() { x, (dimensions, length) ->
+            .mapIndexed { x, (dimensions, length) ->
                 val underTest = Day2.Box.from(dimensions)
                 DynamicTest.dynamicTest("${x + 1}: Dimensions $dimensions require $length feet of ribbon") {
                     assertThat(underTest.ribbonToWrapAndMakeBow()).isEqualTo(length)

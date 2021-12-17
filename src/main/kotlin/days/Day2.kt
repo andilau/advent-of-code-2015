@@ -27,7 +27,7 @@ class Day2(dimensions: List<String>) : Puzzle {
                 .let { 3 * it[0] + 2 * it[1] + 2 * it[2] }
 
         fun ribbonToWrapAndMakeBow(): Int {
-            return perimeters.sorted().first() + volume
+            return perimeters.minOf { it } + volume
         }
 
         private val perimeters

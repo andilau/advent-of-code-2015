@@ -30,31 +30,29 @@ class Day2(dimensions: List<String>) : Puzzle {
             return perimeters.sorted().first() + volume
         }
 
-        val perimeters
+        private val perimeters
             get() = listOf(
                 l + l + w + w,
                 w + w + h + h,
                 h + h + l + l
             )
 
-        val areas
+        private val areas
             get() = listOf(
                 l * w,
                 w * h,
                 h * l
             )
 
-        val volume get() = l * w * h
+        private val volume get() = l * w * h
 
         companion object {
             fun from(dimension: String): Box {
                 return dimension
                     .split("x".toRegex(), 3)
                     .map(String::toInt)
-                    .let { Box(it[0], it[1], it[2]) }
+                    .let { (l, w, h) -> Box(l, w, h) }
             }
         }
     }
-
 }
-

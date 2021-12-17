@@ -15,11 +15,12 @@ class Day2Test {
         fun shouldCalculateAreaOfWrappingPaper() = listOf(
             "2x3x4" to 58,
             "1x1x10" to 43,
-        ).mapIndexed() { x, (dimensions, area) ->
-            DynamicTest.dynamicTest("${x + 1}: Dimensions $dimensions require $area square feet of wrapping paper") {
-                assertThat(Day2.Box.from(dimensions).areaWithExtra()).isEqualTo(area)
+        )
+            .mapIndexed() { x, (dimensions, area) ->
+                DynamicTest.dynamicTest("${x + 1}: Dimensions $dimensions require $area square feet of wrapping paper") {
+                    assertThat(Day2.Box.from(dimensions).areaWithExtra()).isEqualTo(area)
+                }
             }
-        }
     }
 
     @Nested
@@ -28,11 +29,12 @@ class Day2Test {
         fun shouldCalculateLengthOfRibbon() = listOf(
             "2x3x4" to 34,
             "1x1x10" to 14,
-        ).mapIndexed() { x, (dimensions, length) ->
-            val underTest = Day2.Box.from(dimensions)
-            DynamicTest.dynamicTest("${x + 1}: Dimensions $dimensions require $length feet of ribbon") {
-                assertThat(underTest.ribbonToWrapAndMakeBow()).isEqualTo(length)
+        )
+            .mapIndexed() { x, (dimensions, length) ->
+                val underTest = Day2.Box.from(dimensions)
+                DynamicTest.dynamicTest("${x + 1}: Dimensions $dimensions require $length feet of ribbon") {
+                    assertThat(underTest.ribbonToWrapAndMakeBow()).isEqualTo(length)
+                }
             }
-        }
     }
 }

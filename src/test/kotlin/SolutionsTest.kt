@@ -8,7 +8,6 @@ import util.InputReader
 
 @DisplayName("Solutions")
 class SolutionsTest {
-    private val input = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
 
     @TestFactory
     fun testAdventOfCode() = listOf(

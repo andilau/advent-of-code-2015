@@ -17,9 +17,13 @@ object Runner {
     fun main(args: Array<String>) {
         val solutions = puzzleClasses.map { dayNumber(it.simpleName) }.toSet()
 
+        args.map { it.toIntOrNull() ?: error("Day argument must be an integer") }
+            .filter { it !in solutions }
+            .forEach { error("No solution for day $it found") }
+
         val days: List<Int>? = args
-            .map { it.toIntOrNull() ?: error("Day argument must be an integer") }
-            .filter { it in solutions || error("No solution for day $it found") }
+            .mapNotNull { it.toIntOrNull() }
+            .filter { it in solutions }
             .takeIf { it.isNotEmpty() }
 
         puzzleClasses

@@ -10,3 +10,5 @@ fun String.toMD5(): String {
 fun ByteArray.toHex(): String {
     return joinToString("") { "%02x".format(it) }
 }
+
+typealias Point = Pair<Int, Int>

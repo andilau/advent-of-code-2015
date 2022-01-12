@@ -1,6 +1,5 @@
-package `2015`
+package days
 
-import days.Day7
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.*
@@ -66,7 +65,7 @@ class Day7Test {
         }
 
         @Test
-        internal fun `Unknown wire configuration should throw `() {
+        internal fun `Unknown wire configuration (a) should throw IllegalStateException`() {
             assertThatThrownBy { Day7(example).partOne() }
                 .isInstanceOf(IllegalStateException::class.java)
                 .hasMessageContaining("Unknown expression (null) for signal to wire a")
@@ -83,7 +82,7 @@ class Day7Test {
     @DisplayName("Part 2")
     inner class Part2 {
         @Test
-        internal fun `Unknown wire`() {
+        internal fun `Unknown wire configuration (a) should throw IllegalStateException`() {
             assertThatThrownBy { Day7(example).partTwo() }
                 .isInstanceOf(IllegalStateException::class.java)
                 .hasMessageContaining("Unknown expression (null) for signal to wire a")

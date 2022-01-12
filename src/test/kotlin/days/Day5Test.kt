@@ -1,6 +1,5 @@
-package `2015`
+package days
 
-import days.Day5
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

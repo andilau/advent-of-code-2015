@@ -13,6 +13,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 5: [Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5)
 - Day 6: [Probably a Fire Hazard](https://adventofcode.com/2015/day/6)
 - Day 7: [Some Assembly Required](https://adventofcode.com/2015/day/7)
+- Day 8: [Matchsticks](https://adventofcode.com/2015/day/8)
 
 ## Features
 

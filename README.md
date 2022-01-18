@@ -16,6 +16,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 8: [Matchsticks](https://adventofcode.com/2015/day/8)
 - Day 9: [All in a Single Night](https://adventofcode.com/2015/day/9)
 - Day 10: [Elves Look, Elves Say](https://adventofcode.com/2015/day/10)
+- Day 11: [Corporate Policy](https://adventofcode.com/2015/day/11)
 
 ## Features
 

@@ -19,6 +19,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 11: [Corporate Policy](https://adventofcode.com/2015/day/11)
 - Day 12: [JSAbacusFramework.io](https://adventofcode.com/2015/day/12)
 - Day 13: [Knights of the Dinner Table](https://adventofcode.com/2015/day/13)
+- Day 14: [Reindeer Olympics](https://adventofcode.com/2015/day/14)
 
 ## Features
 

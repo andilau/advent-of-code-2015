@@ -23,3 +23,17 @@ fun <T> Collection<T>.permutations(): Set<List<T>> {
     }
     return result
 }
+
+fun <T> Collection<T>.arrangements(): Set<List<T>> {
+    if (size <= 3) return setOf(this.toList())
+    val result: MutableSet<List<T>> = mutableSetOf()
+    val first = first()
+    this.drop(1).arrangements().forEach { list ->
+        for (index in list.indices) {
+            val new = list.toMutableList()
+            new.add(index, first)
+            result.add(new)
+        }
+    }
+    return result
+}

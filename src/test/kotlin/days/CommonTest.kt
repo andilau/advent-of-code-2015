@@ -92,6 +92,16 @@ class CommonTest {
         }
     }
 
+    @Nested
+    @DisplayName("Combinations")
+    inner class Combinations {
+        @Test
+        internal fun `Combination of 100 Elements in 4 Slots`() {
+            val combinations = combinations(4,100)
+            assertThat(combinations)
+                .hasSize(176851)
+        }
+    }
 /*
 linear permutation      4! -> 4*3*2*1 = 24
 circular p.         (4-1)! -> 3*2*1 = 6

@@ -11,7 +11,7 @@ class Day13(happinessStatements: List<String>) : Puzzle {
     override fun partOne(): Int =
         happinessMap
             .guests()
-            .permutations()
+            .arrangements()
             .maxOf { arrangement -> arrangement.totalHappiness(happinessMap) }
 
     override fun partTwo(): Int =
@@ -24,7 +24,7 @@ class Day13(happinessStatements: List<String>) : Puzzle {
             }.let {
                 it
                     .guests()
-                    .permutations()
+                    .arrangements()
                     .maxOf { arrangement -> arrangement.totalHappiness(it) }
             }
 

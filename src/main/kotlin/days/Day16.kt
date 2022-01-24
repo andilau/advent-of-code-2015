@@ -6,34 +6,52 @@ package days
     date = Date(day = 16, year = 2015)
 )
 class Day16(input: List<String>) : Puzzle {
-    private val ants = input.map(AntSue::from).toSet().toMutableSet()
+    private val aunts = input.map(AntSue::from).toSet()
+
+    val signature = """
+         children: 3
+         cats: 7
+         samoyeds: 2
+         pomeranians: 3
+         akitas: 0
+         vizslas: 0
+         goldfish: 5
+         trees: 3
+         cars: 2
+         perfumes: 1
+         """.trimIndent().lines()
+        .associate { it.substringBefore(": ") to it.substringAfter(": ").toInt() }
 
     override fun partOne(): Int {
-        val props = """
-     children: 3
-     cats: 7
-     samoyeds: 2
-     pomeranians: 3
-     akitas: 0
-     vizslas: 0
-     goldfish: 5
-     trees: 3
-     cars: 2
-     perfumes: 1
-     """.trimIndent().lines().map { it.substringBefore(": ") to it.substringAfter(": ").toInt() }.toMap()
-
-        props.forEach { (key, value) ->
-            ants.removeIf {
-                it.properties.containsKey(key) &&
-                it.properties[key] != value}
-            println("ants.size = ${ants.size}")
-        }
-
-
-        return ants.single().id
+        return with(aunts.toMutableSet()) {
+            signature.forEach { (key, value) ->
+                this.removeIf {
+                    it.properties.containsKey(key) &&
+                            it.properties[key] != value
+                }
+                println("ants.size = ${this.size}")
+            }
+            this
+        }.single().id
     }
 
-    override fun partTwo(): Int = 0
+    override fun partTwo(): Int {
+        return with(aunts.toMutableSet()) {
+            signature.forEach { (key, value) ->
+                this.removeIf {
+                    it.properties.containsKey(key) &&
+                            !when (key) {
+                                "cats", "trees" -> it.properties[key]!! > value
+                                "pomeranians", "goldfish" -> it.properties[key]!! < value
+                                else ->
+                                    it.properties[key] == value
+                            }
+                }
+                println("ants.size = ${this.size}")
+            }
+            this
+        }.single().id
+    }
 
     data class AntSue(val id: Int, val properties: Map<String, Int>) {
         companion object {

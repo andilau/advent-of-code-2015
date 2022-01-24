@@ -6,21 +6,8 @@ package days
     date = Date(day = 16, year = 2015)
 )
 class Day16(input: List<String>) : Puzzle {
-    private val aunts = input.map(AntSue::from).toSet()
-
-    val signature = """
-         children: 3
-         cats: 7
-         samoyeds: 2
-         pomeranians: 3
-         akitas: 0
-         vizslas: 0
-         goldfish: 5
-         trees: 3
-         cars: 2
-         perfumes: 1
-         """.trimIndent().lines()
-        .associate { it.substringBefore(": ") to it.substringAfter(": ").toInt() }
+    private val aunts = input.map(AuntSue::from).toSet()
+    private val signature = measurements()
 
     override fun partOne(): Int {
         return with(aunts.toMutableSet()) {
@@ -51,15 +38,29 @@ class Day16(input: List<String>) : Puzzle {
         }.single().id
     }
 
-    data class AntSue(val id: Int, val properties: Map<String, Int>) {
+    data class AuntSue(val id: Int, val properties: Map<String, Int>) {
         companion object {
-            fun from(line: String): AntSue {
+            fun from(line: String): AuntSue {
                 val id = line.substringBefore(':').substringAfter("Sue ").toInt()
                 val properties = line.substringAfter(": ")
                     .split(", ")
                     .associate { it.split(": ", limit = 2).let { it.first() to it.last().toInt() } }
-                return AntSue(id, properties)
+                return AuntSue(id, properties)
             }
         }
     }
+
+    private fun measurements() = """
+             children: 3
+             cats: 7
+             samoyeds: 2
+             pomeranians: 3
+             akitas: 0
+             vizslas: 0
+             goldfish: 5
+             trees: 3
+             cars: 2
+             perfumes: 1
+             """.trimIndent().lines()
+        .associate { it.substringBefore(": ") to it.substringAfter(": ").toInt() }
 }

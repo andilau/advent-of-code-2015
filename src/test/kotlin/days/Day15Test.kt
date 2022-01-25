@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("Day 11")
+@DisplayName("Day 15")
 class Day15Test {
     val twoIngredients = """
         Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8

@@ -96,8 +96,15 @@ class CommonTest {
     @DisplayName("Combinations")
     inner class Combinations {
         @Test
+        fun testCombinations() {
+            val combinations = listOf(1, 2, 3).combinations()
+            combinations.forEach { println(it) }
+            assertThat(combinations).hasSize(8)
+        }
+
+        @Test
         internal fun `Combination of 100 Elements in 4 Slots`() {
-            val combinations = combinations(4,100)
+            val combinations = combinations(4, 100)
             assertThat(combinations)
                 .hasSize(176851)
         }

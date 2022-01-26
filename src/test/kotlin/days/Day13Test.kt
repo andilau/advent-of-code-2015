@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("Day 11")
+@DisplayName("Day 13")
 class Day13Test {
     val example = """
         Alice would gain 54 happiness units by sitting next to Bob.

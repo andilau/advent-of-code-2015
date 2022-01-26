@@ -1,6 +1,8 @@
 package days
 
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.*
+import util.InputReader
 
 @DisplayName("Day 16")
 class Day16Test {
@@ -16,13 +18,18 @@ class Day16Test {
     @DisplayName("Part 1")
     inner class Part1 {
         @Test
-        fun `should not throw`() {
+        fun `Example data is valid but shortend so should parse`() {
             assertDoesNotThrow { Day16(example) }
         }
 
         @Test
-        fun `should  throw`() {
-            assertThrows<IllegalArgumentException> { Day16(example).partOne() }
+        fun `Example data is not sufficient to match signature and should throw`() {
+            assertThrows<NoSuchElementException> { Day16(example).partOne() }
+        }
+
+        @Test
+        fun `Full data is sufficient to match exactly one description and should equal id 373`() {
+            Assertions.assertThat(Day16(InputReader.getInputAsList(16)).partOne()).isEqualTo(373)
         }
     }
 
@@ -30,8 +37,13 @@ class Day16Test {
     @DisplayName("Part 2")
     inner class Part2 {
         @Test
-        fun `should  throw`() {
-            assertThrows<IllegalArgumentException> { Day16(example).partTwo() }
+        fun `Example data is not sufficient to match signature and should throw`() {
+            assertThrows<NoSuchElementException> { Day16(example).partTwo() }
+        }
+
+        @Test
+        fun `Full data is sufficient to match exactly one description and should equal id 260`() {
+            Assertions.assertThat(Day16(InputReader.getInputAsList(16)).partTwo()).isEqualTo(260)
         }
     }
 }

@@ -7,31 +7,17 @@ package days
 )
 class Day16(input: List<String>) : Puzzle {
     private val aunts = input.map(AuntSueDescription::from).toSet()
+    private val signature = AuntSueSignature
 
-    override fun partOne(): Int = with(aunts.toMutableSet()) {
-        signature.forEach { (key, value) ->
-            this.removeIf {
-                it.properties.containsKey(key) &&
-                        it.properties[key] != value
-            }
-        }
-        this
-    }.single().id
+    override fun partOne(): Int =
+        aunts.toMutableSet()
+            .apply { removeIf { !signature.matchesButOutdated(it) } }
+            .single().id
 
-    override fun partTwo(): Int = with(aunts.toMutableSet()) {
-        signature.forEach { (key, value) ->
-            this.removeIf {
-                it.properties.containsKey(key) &&
-                        !when (key) {
-                            "cats", "trees" -> it.properties[key]!! > value
-                            "pomeranians", "goldfish" -> it.properties[key]!! < value
-                            else ->
-                                it.properties[key] == value
-                        }
-            }
-        }
-        this
-    }.single().id
+    override fun partTwo(): Int =
+        aunts.toMutableSet()
+            .apply { removeIf { !signature.matchesWithRanges(it) } }
+            .single().id
 
     data class AuntSueDescription(val id: Int, val properties: Map<String, Int>) {
         companion object {
@@ -39,13 +25,19 @@ class Day16(input: List<String>) : Puzzle {
                 val id = line.substringBefore(':').substringAfter("Sue ").toInt()
                 val properties = line.substringAfter(": ")
                     .split(", ")
-                    .associate { it.split(": ", limit = 2).let { it.first() to it.last().toInt() } }
+                    .associate { property ->
+                        property
+                            .split(": ", limit = 2)
+                            .let { it.first() to it.last().toInt() }
+                    }
                 return AuntSueDescription(id, properties)
             }
         }
     }
 
-    private val signature = """
+
+    object AuntSueSignature {
+        private val properties: Map<String, Int> = """
              children: 3
              cats: 7
              samoyeds: 2
@@ -56,7 +48,22 @@ class Day16(input: List<String>) : Puzzle {
              trees: 3
              cars: 2
              perfumes: 1
-             """.trimIndent()
-        .lines()
-        .associate { it.substringBefore(": ") to it.substringAfter(": ").toInt() }
+             """.trimIndent().lines()
+            .associate { it.substringBefore(": ") to it.substringAfter(": ").toInt() }
+
+        fun matchesButOutdated(description: AuntSueDescription): Boolean =
+            description.properties.all { (key, value) ->
+                properties.containsKey(key) && properties[key] == value
+            }
+
+        fun matchesWithRanges(description: AuntSueDescription) =
+            description.properties.all { (key, value) ->
+                properties.containsKey(key) &&
+                        when (key) {
+                            "cats", "trees" -> properties[key]!! < value
+                            "pomeranians", "goldfish" -> properties[key]!! > value
+                            else -> properties[key] == value
+                        }
+            }
+    }
 }

@@ -7,36 +7,18 @@ package days
 )
 class Day17(input: List<String>) : Puzzle {
     private val containers = input.map(String::toInt)
-    internal var storage = 150
-    private val lists by lazy {
-        containers
-            .combinations()
-            .filter { it.sum() == storage }
-    }
+    internal var capacity = 150
 
-    private val fast by lazy { containers.combinationsSum(storage) }
+    private val combinationsOfContainers by lazy { containers.combinationsFit(capacity) }
 
-    override fun partOne() = fast
+    override fun partOne() = combinationsOfContainers
         //.onEach { println(it) }
         .count()
 
-    override fun partTwo() = fast
+    override fun partTwo() = combinationsOfContainers
         .groupingBy { it.size }.eachCount()
         .toSortedMap()
         .let { map -> map[map.firstKey()]!! }
 }
 
- fun List<Int>.combinationsSum(target: Int): Sequence<List<Int>> = sequence {
-    if (target == 0)
-        yield(emptyList())
-    else {
-        val options = this@combinationsSum
-        options.withIndex().forEach { (index, container) ->
-            if (container <= target) {
-                subList(index + 1, options.size).combinationsSum(target - container).forEach {
-                    yield(listOf(container) + it)
-                }
-            }
-        }
-    }
-}
+

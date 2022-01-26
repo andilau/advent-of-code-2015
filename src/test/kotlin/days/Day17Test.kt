@@ -13,17 +13,8 @@ class Day17Test {
     @DisplayName("Part 1")
     inner class Part1 {
         @Test
-        fun test() {
-            assertThat(Day17(input).apply { storage = 25 }.partOne()).isEqualTo(4)
-        }
-
-        @Test
-        fun testFill() {
-            val toList = input.map(String::toInt).combinationsSum(25).toList()
-            toList.forEach { println(it) }
-            assertThat(toList)
-                .hasSize(4)
-                .containsExactlyInAnyOrder(listOf(20, 5), listOf(20, 5), listOf(15, 10), listOf(15, 5, 5))
+        fun `Filling all containers entirely, there should be 4 different combinations of containers to fit capacity of 25`() {
+            assertThat(Day17(input).apply { capacity = 25 }.partOne()).isEqualTo(4)
         }
     }
 
@@ -31,8 +22,8 @@ class Day17Test {
     @DisplayName("Part 2")
     inner class Part2 {
         @Test
-        fun `How many different ways to fill with  minimum number of containers`() {
-            assertThat(Day17(input).apply { storage = 25 }.partTwo()).isEqualTo(3)
+        fun `Filling all containers entirely, there should be 3 combinations to fit capacity with minimum containers (2)`() {
+            assertThat(Day17(input).apply { capacity = 25 }.partTwo()).isEqualTo(3)
         }
 
     }

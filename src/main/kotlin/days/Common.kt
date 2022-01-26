@@ -69,7 +69,6 @@ fun combinations(options: Int = 4, slots: Int = 100): Set<IntArray> {
 // - add 0..9
 // - add 0..9
 
-
 /*
 # Combination (order does not matter)
 - with repetition
@@ -82,3 +81,18 @@ r! * (n-1)!
 r - number of slots
 n - number of options
 * */
+
+fun List<Int>.combinationsFit(target: Int): Sequence<List<Int>> = sequence {
+    if (target == 0)
+        yield(emptyList())
+    else {
+        val available = this@combinationsFit
+        available.withIndex().forEach { (index, container) ->
+            if (container <= target) {
+                subList(index + 1, available.size)
+                    .combinationsFit(target - container)
+                    .forEach { yield(listOf(container) + it) }
+            }
+        }
+    }
+}

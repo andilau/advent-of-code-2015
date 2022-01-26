@@ -38,7 +38,7 @@ class Day16Test {
     inner class Part2 {
         @Test
         fun `Example data is not sufficient to match signature and should throw`() {
-            assertThrows<IllegalArgumentException> { Day16(example).partTwo() }
+            assertThrows<NoSuchElementException> { Day16(example).partTwo() }
         }
 
         @Test

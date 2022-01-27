@@ -96,10 +96,33 @@ class CommonTest {
     @DisplayName("Combinations")
     inner class Combinations {
         @Test
+        fun testCombinations() {
+            val combinations = listOf(1, 2, 3).combinations()
+            combinations.forEach { println(it) }
+            assertThat(combinations).hasSize(8)
+        }
+
+        @Test
         internal fun `Combination of 100 Elements in 4 Slots`() {
-            val combinations = combinations(4,100)
+            val combinations = combinations(4, 100)
             assertThat(combinations)
                 .hasSize(176851)
+        }
+
+        @Test
+        fun `There should be zero combinations to fit any capacity`() {
+            val toList = emptyList<Int>().combinationsFit(25).toList()
+            assertThat(toList)
+                .hasSize(0)
+        }
+
+        @Test
+        fun `There should be 4 combinations to fit capacity of 25`() {
+            val available = listOf(20, 15, 10, 5, 5)
+            val combinations = available.combinationsFit(25).toList()
+            assertThat(combinations)
+                .hasSize(4)
+                .containsExactlyInAnyOrder(listOf(20, 5), listOf(20, 5), listOf(15, 10), listOf(15, 5, 5))
         }
     }
 /*

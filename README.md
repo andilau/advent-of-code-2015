@@ -22,6 +22,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 14: [Reindeer Olympics](https://adventofcode.com/2015/day/14)
 - Day 15: [Science for Hungry People](https://adventofcode.com/2015/day/15)
 - Day 16: [Aunt Sue](https://adventofcode.com/2015/day/16)
+- Day 17: [No Such Thing as Too Much](https://adventofcode.com/2015/day/17)
 
 ## Features
 

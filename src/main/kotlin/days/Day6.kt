@@ -2,16 +2,17 @@ package days
 
 @AdventOfCodePuzzle(
     name = "Probably a Fire Hazard",
-    url = "https://adventofcode.com/2000/day/6",
-    date = Date(day = 6, year = 2000)
+    url = "https://adventofcode.com/2015/day/6",
+    date = Date(day = 6, year = 2015)
 )
 class Day6(private val commands: List<String>) : Puzzle {
+    private val size = 1000
 
     override fun partOne() =
-        lights(BooleanGrid(1000))
+        lights(BooleanGrid(size))
 
     override fun partTwo() =
-        lights(IntGrid(1000))
+        lights(IntGrid(size))
 
     private fun lights(init: Grid) =
         commands
@@ -36,20 +37,24 @@ class Day6(private val commands: List<String>) : Puzzle {
         fun lights(): Int
     }
 
-    class BooleanGrid(size: Int) : Grid {
-        private val on = BooleanArray(size * size)
-        override fun turnOn(x: Int, y: Int) { on[y * 1000 + x] = true }
-        override fun turnOff(x: Int, y: Int) { on[y * 1000 + x] = false }
-        override fun toggle(x: Int, y: Int) { on[y * 1000 + x] = !on[y * 1000 + x] }
-        override fun lights() = on.count { it }
+    class BooleanGrid(private val size: Int) : Grid {
+        private val cells = BooleanArray(size * size)
+        override fun turnOn(x: Int, y: Int) { cells[at(y, x)] = true }
+        override fun turnOff(x: Int, y: Int) { cells[at(y, x)] = false }
+        override fun toggle(x: Int, y: Int) { cells[at(y, x)] = !cells[at(y, x)] }
+        override fun lights() = cells.count { it }
+
+        private fun at(y: Int, x: Int) = y * size + x
     }
 
-    class IntGrid(size: Int) : Grid {
-        private val on = IntArray(size * size)
-        override fun turnOn(x: Int, y: Int) { on[y * 1000 + x]++ }
-        override fun turnOff(x: Int, y: Int) { on[y * 1000 + x] -= if (on[y * 1000 + x] > 0) 1 else 0 }
-        override fun toggle(x: Int, y: Int) { on[y * 1000 + x] += 2 }
-        override fun lights() = on.sum()
+    class IntGrid(private val size: Int) : Grid {
+        private val cells = IntArray(size * size)
+        override fun turnOn(x: Int, y: Int) { cells[at(y, x)]++ }
+        override fun turnOff(x: Int, y: Int) { cells[at(y, x)] -= if (cells[at(y, x)] > 0) 1 else 0 }
+        override fun toggle(x: Int, y: Int) { cells[at(y, x)] += 2 }
+        override fun lights() = cells.sum()
+
+        private fun at(y: Int, x: Int) = y * size + x
     }
 
     data class Command(val type: String, val from: Point, val to: Point) {

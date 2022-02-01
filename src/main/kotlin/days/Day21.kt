@@ -1,7 +1,7 @@
 package days
 
-import days.Day21.Item.*
-import java.lang.Integer.max
+import days.Day21.Item.ItemType
+import kotlin.math.max
 
 @AdventOfCodePuzzle(
     name = "RPG Simulator 20XX",
@@ -10,112 +10,83 @@ import java.lang.Integer.max
 )
 class Day21(val input: List<String>) : Puzzle {
     private val items = parseItems()
-    private val boss = input.map { it.replace(Regex("""[^\d]+"""), "") }
-        .map(String::toInt)
-        .let { Boss(it[0], it[1], it[2]) }
+    private val boss = Boss.from(input)
 
     override fun partOne(): Int = items
         .equipPlayer()
-        .filter { it winsAgainst boss.copy() }
+        .filter { it isWinner boss.copy() }
         .minOf { it.cost() }
 
     override fun partTwo(): Int = items
         .equipPlayer()
-        .filter { it loosesAgainst boss.copy() }
+        .filter { it isLooser boss.copy() }
         .maxOf { it.cost() }
 
     private fun Collection<Item>.equipPlayer() = sequence {
-        for (weapon in filterIsInstance<Weapon>())
-            for (armor in filterIsInstance<Armor>() + null)
-                for (ring1 in filterIsInstance<Ring>() + null)
-                    for (ring2 in filterIsInstance<Ring>() - ring1 + null) {
-                        yield(Player(100, weapon, armor, ring1, ring2))
-                    }
+        for (weapon in filter { it.type == ItemType.WEAPON })
+            for (armor in filter { it.type == ItemType.ARMOR } + null)
+                with(filter { it.type == ItemType.RING } + null) {
+                    for (ring1 in this.withIndex())
+                        for (ring2 in this.drop(ring1.index + 1))
+                            yield(Player(100, weapon, armor, ring1.value, ring2))
+                }
     }
 
-    private infix fun Player.winsAgainst(other: Boss): Boolean {
-        while (true) {
-            if (this.attacks(other)) return true
-            if (other.attacks(this)) return false
-        }
-    }
-
-    private infix fun Player.loosesAgainst(boss: Boss) = !winsAgainst(boss)
+    fun testCollection(): Int = items.equipPlayer().count()
 
     sealed interface Playable {
         var health: Int
-        fun attackPoints(): Int
-        fun defensePoints(): Int
-
+        val attack: Int
+        val defense: Int
         infix fun attacks(other: Playable): Boolean {
-            other.health -= max(attackPoints() - other.defensePoints(), 1)
+            other.health -= max(attack - other.defense, 1)
             return other.health <= 0
         }
     }
 
-    data class Boss(override var health: Int, val attack: Int, val defense: Int) : Playable {
-        override fun attackPoints(): Int = attack
-        override fun defensePoints(): Int = defense
+    data class Boss(override var health: Int, override val attack: Int, override val defense: Int) : Playable {
+        companion object {
+            fun from(lines: List<String>) = lines
+                .map { it.replace(Regex("""[^\d]+"""), "") }
+                .map(String::toInt)
+                .let { Boss(it[0], it[1], it[2]) }
+        }
+
     }
 
     data class Player(
-        override var health: Int, val weapon: Weapon, val armor: Armor?, val ring1: Ring?, val ring2: Ring?
+        override var health: Int, val weapon: Item, val armor: Item?, val ring1: Item?, val ring2: Item?
     ) : Playable {
         private val items = arrayOf(weapon, armor, ring1, ring2)
+        override val attack by lazy { items.filterNotNull().sumOf { it.damage } }
 
-        override fun attackPoints() = items.filterNotNull().sumOf { it.damage }
-        override fun defensePoints() = items.filterNotNull().sumOf { it.armor }
-
+        override val defense by lazy { items.filterNotNull().sumOf { it.armor } }
         fun cost() = items.filterNotNull().sumOf { it.cost }
+
+        infix fun isWinner(other: Boss): Boolean {
+            while (true) {
+                if (this.attacks(other)) return true
+                if (other.attacks(this)) return false
+            }
+        }
+
+        infix fun isLooser(boss: Boss) = !isWinner(boss)
     }
 
-    sealed interface Item {
-        val name: String
-        val cost: Int
-        val damage: Int
-        val armor: Int
-
-        data class Weapon(
-            override val name: String,
-            override val cost: Int,
-            override val damage: Int,
-            override val armor: Int
-        ) : Item
-
-        data class Armor(
-            override val name: String,
-            override val cost: Int,
-            override val damage: Int,
-            override val armor: Int
-        ) : Item
-
-        data class Ring(
-            override val name: String,
-            override val cost: Int,
-            override val damage: Int,
-            override val armor: Int
-        ) : Item
+    data class Item(val type: ItemType, val name: String, val cost: Int, val damage: Int, val armor: Int) {
 
         companion object {
             private val REGEX = Regex("""(\w+|\w+ \+\d]?) +(\d+) +(\d+) +(\d+)""")
-
-            fun weapon(line: String) = REGEX.matchEntire(line)?.destructured?.let { (name, cost, damage, armor) ->
-                Weapon(name, cost.toInt(), damage.toInt(), armor.toInt())
-            }
-
-            fun armor(line: String) = REGEX.matchEntire(line)?.destructured?.let { (name, cost, damage, armor) ->
-                Armor(name, cost.toInt(), damage.toInt(), armor.toInt())
-            }
-
-            fun ring(line: String) = REGEX.matchEntire(line)?.destructured?.let { (name, cost, damage, armor) ->
-                Ring(name, cost.toInt(), damage.toInt(), armor.toInt())
-            }
+            fun from(line: String, type: ItemType) =
+                REGEX.matchEntire(line)?.destructured?.let { (name, cost, damage, armor) ->
+                    Item(type, name, cost.toInt(), damage.toInt(), armor.toInt())
+                }
         }
+
+        enum class ItemType { WEAPON, ARMOR, RING }
     }
 
-    enum class ItemType { WEAPON, ARMOR, RING }
-
-    private fun parseItems(): Set<Item> {
+    private fun parseItems(): List<Item> {
         var type: ItemType = ItemType.WEAPON
         return """
             Weapons:    Cost  Damage  Armor
@@ -139,21 +110,21 @@ class Day21(val input: List<String>) : Puzzle {
             Defense +1   20     0       1
             Defense +2   40     0       2
             Defense +3   80     0       3
-            """.trimIndent().lines().mapNotNull {
-            if (it.isEmpty()) {
-                type = when (type) {
-                    ItemType.WEAPON -> ItemType.ARMOR
-                    ItemType.ARMOR -> ItemType.RING
-                    ItemType.RING -> error("Puh ")
+            """
+            .trimIndent().lines()
+            .filter { it.isNotEmpty() }
+            .mapNotNull { line ->
+                if (line.any { it == ':' }) {
+                    val section = line.substringBefore(':')
+                    type = when (section) {
+                        "Weapons" -> ItemType.WEAPON
+                        "Armor" -> ItemType.ARMOR
+                        "Rings" -> ItemType.RING
+                        else -> error("Unknown section: $section")
+                    }
+                    null
                 }
-                null
+                else Item.from(line, type)
             }
-            else
-                when (type) {
-                    ItemType.WEAPON -> Item.weapon(it)
-                    ItemType.ARMOR -> Item.armor(it)
-                    ItemType.RING -> Item.ring(it)
-                }
-        }.toSet()
     }
 }

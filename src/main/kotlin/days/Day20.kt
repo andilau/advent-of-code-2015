@@ -8,13 +8,13 @@ import kotlin.math.sqrt
     date = Date(day = 20, year = 2015)
 )
 class Day20(input: List<Int>) : Puzzle {
-    private val target = input.first()
+    private val threshold = input.first()
 
     override fun partOne(): Int =
-        presentsDeliveredToInfiniteHouses().indexOfFirst { it >= target } + 1
+        presentsDeliveredToInfiniteHouses().indexOfFirst { it >= threshold } + 1
 
     override fun partTwo(): Int =
-        presentsDeliveredTo50AndExtra().indexOfFirst { it > target } + 1
+        presentsDeliveredTo50AndExtra().indexOfFirst { it > threshold } + 1
 
     internal fun presentsDeliveredToInfiniteHouses() = sequence {
         for (house in (1..Int.MAX_VALUE)) {

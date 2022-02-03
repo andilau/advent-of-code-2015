@@ -8,20 +8,21 @@ import kotlin.math.sqrt
     date = Date(day = 20, year = 2015)
 )
 class Day20(input: List<Int>) : Puzzle {
-    private val target = input.first()
+    private val threshold = input.first()
 
     override fun partOne(): Int =
-        presentsDeliveredForInfinite().indexOfFirst { it >= target } + 1
+        presentsDeliveredToInfiniteHouses().indexOfFirst { it >= threshold } + 1
 
     override fun partTwo(): Int =
-        presentsDeliveredTo50AndExtra().indexOfFirst { it > target } + 1
+        presentsDeliveredTo50AndExtra().indexOfFirst { it > threshold } + 1
 
-    internal fun presentsDeliveredForInfinite() = sequence {
+    internal fun presentsDeliveredToInfiniteHouses() = sequence {
         for (house in (1..Int.MAX_VALUE)) {
             val bound = sqrt(house.toDouble()).toInt()
             var presents = 1 + house
             for (elf in 2..bound) if (house % elf == 0) presents += elf + house / elf
-            if (bound * bound == house) presents -= bound   // correction
+            if (bound * bound == house) presents -= bound   // correction for double counting
+
             yield(presents * 10)
         }
     }

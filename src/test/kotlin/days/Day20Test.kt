@@ -9,19 +9,6 @@ import org.junit.jupiter.api.Test
 class Day20Test {
     val minPresents = listOf(33_100_000)
 
-    /*
-        1   -> 1 + (1)          = 1
-        2   -> 1 + 2            = 3
-        3   -> 1 + 3            = 4
-        4   -> 1 + 2 + 4        = 7 (2 + (4/2))
-        5   -> 1 + 5            = 6
-        6   -> 1 + 2 + 3 + 6    = 12 (2 + 6/2) (3 + 6/3)
-        7   -> 1 + 7            = 8
-        8   -> 1 + 2 + 4 + 8    = 15 (2 + 8/2)
-        9   -> 1 + 3.+ 9        = 13 (3 + 9/3)
-        ...
-        16  -> 1 + 16           = 31   (2 + 16/2 + 4 + 16/4) -> 2+8 + 4+4 - 1*4
-     */
     @Nested
     @DisplayName("Part 1")
     inner class Part1 {
@@ -29,7 +16,7 @@ class Day20Test {
 
         @Test
         fun `Presents delivered to first 9 houses`() {
-            val presents = Day20(minPresents).presentsDeliveredForInfinite().take(expected.size).toList()
+            val presents = Day20(minPresents).presentsDeliveredToInfiniteHouses().take(expected.size).toList()
             assertThat(presents).isEqualTo(expected)
         }
     }
@@ -45,4 +32,18 @@ class Day20Test {
             assertThat(presents).isEqualTo(expected)
         }
     }
+
+    /*
+    1   -> 1 + (1)          = 1
+    2   -> 1 + 2            = 3
+    3   -> 1 + 3            = 4
+    4   -> 1 + 2 + 4        = 7 (2 + (4/2))
+    5   -> 1 + 5            = 6
+    6   -> 1 + 2 + 3 + 6    = 12 (2 + 6/2) (3 + 6/3)
+    7   -> 1 + 7            = 8
+    8   -> 1 + 2 + 4 + 8    = 15 (2 + 8/2)
+    9   -> 1 + 3.+ 9        = 13 (3 + 9/3)
+    ...
+    16  -> 1 + 16           = 31   (2 + 16/2 + 4 + 16/4) -> 2+8 + 4+4 - 1*4
+    */
 }

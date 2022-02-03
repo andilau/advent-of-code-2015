@@ -22,6 +22,7 @@ class Day20(input: List<Int>) : Puzzle {
             var presents = 1 + house
             for (elf in 2..bound) if (house % elf == 0) presents += elf + house / elf
             if (bound * bound == house) presents -= bound   // correction for double counting
+
             yield(presents * 10)
         }
     }

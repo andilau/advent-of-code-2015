@@ -19,7 +19,6 @@ class Day21Test {
         // and that the boss has 12 hit points, 7 damage, and 2 armor:
         val player = Day21.Boss(8, 5, 5)
         val boss = Day21.Boss(12, 7, 2)
-
         val playerBefore = player.copy()
         // Act
         var won = player.attacks(boss)

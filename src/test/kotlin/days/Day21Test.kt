@@ -14,7 +14,7 @@ class Day21Test {
         """.trimIndent().lines()
 
     @Test
-    fun `In this scenario, the player wins barely`() {
+    fun `In this scenario, the player wins Barely`() {
         // Given: For example, suppose you have 8 hit points, 5 damage, and 5 armor,
         // and that the boss has 12 hit points, 7 damage, and 2 armor:
         val player = Day21.Boss(8, 5, 5)
@@ -41,26 +41,18 @@ class Day21Test {
         assertThat(boss.attacks(player)).isFalse
         assertThat(player.health).isEqualTo(4)
 
-        assertThat(player.attacks(boss)).isFalse
+        assertThat( player.attacks(boss)).isFalse
         assertThat(boss.health).isEqualTo(3)
 
         assertThat(boss.attacks(player)).isFalse
         assertThat(player.health).isEqualTo(2)
 
-        assertThat(player.attacks(boss)).isTrue
+        assertThat( player.attacks(boss)).isTrue
         assertThat(boss.health).isEqualTo(0)
     }
 
-    @Test
-    fun `There should be 630 equipment combinations`() {
-        // weapons * armor + 1(null)) 5 * 6 -> 30
-        // rings + 1(null) * rings + 1(null)) 7 * 6 / 2 -> 21
-        // = 30 * 21 -> 630
-        assertThat(Day21(input).testCollection()).isEqualTo(630)
-    }
-
-    @DisplayName("Part 1")
     @Nested
+    @DisplayName("Part 1")
     inner class Part1 {
         @Test
         fun `What is the least amount of gold you can spend and still win the fight`() {

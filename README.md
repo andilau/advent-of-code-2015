@@ -27,6 +27,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 19: [Medicine for Rudolph](https://adventofcode.com/2015/day/19)
 - Day 20: [Infinite Elves and Infinite Houses](https://adventofcode.com/2015/day/20)
 - Day 21: [RPG Simulator 20XX](https://adventofcode.com/2015/day/21)
+- Day 22: [Wizard Simulator 20XX](https://adventofcode.com/2015/day/22)
 
 ## Features
 

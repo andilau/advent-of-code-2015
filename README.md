@@ -28,6 +28,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 20: [Infinite Elves and Infinite Houses](https://adventofcode.com/2015/day/20)
 - Day 21: [RPG Simulator 20XX](https://adventofcode.com/2015/day/21)
 - Day 22: [Wizard Simulator 20XX](https://adventofcode.com/2015/day/22)
+- Day 23: [Opening the Turing Lock](https://adventofcode.com/2015/day/23)
 
 ## Features
 

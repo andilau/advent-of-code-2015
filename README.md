@@ -29,6 +29,7 @@ by [Eric Wastl](http://was.tl/).
 - Day 21: [RPG Simulator 20XX](https://adventofcode.com/2015/day/21)
 - Day 22: [Wizard Simulator 20XX](https://adventofcode.com/2015/day/22)
 - Day 23: [Opening the Turing Lock](https://adventofcode.com/2015/day/23)
+- Day 24: [It Hangs in the Balance](https://adventofcode.com/2015/day/24)
 
 ## Features
 

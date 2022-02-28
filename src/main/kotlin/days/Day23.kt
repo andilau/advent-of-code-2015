@@ -5,13 +5,13 @@ package days
     url = "https://adventofcode.com/2015/day/23",
     date = Date(day = 23, year = 2015)
 )
-class Day23(val program: List<String>) : Puzzle {
+class Day23(private val program: List<String>) : Puzzle {
 
     override fun partOne(): Int = Computer(program).run().b
 
     override fun partTwo(): Int = Computer(program).apply { a = 1 }.run().b
 
-    class Computer(val program: List<String>) {
+    class Computer(private val program: List<String>) {
         private val register = mutableMapOf('a' to 0, 'b' to 0)
         var a: Int
             get() = register.getOrDefault('a', 0)

@@ -18,7 +18,7 @@ class Day10(private val numbers: String) : Puzzle {
             .length
 
     companion object {
-        fun lookAndSay(look: String) = sequence<String> {
+        fun lookAndSay(look: String) = sequence {
             var begin = 0
             var end = 0
             while (end in look.indices) {

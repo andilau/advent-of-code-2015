@@ -51,7 +51,6 @@ class Day21(val input: List<String>) : Puzzle {
                 .map(String::toInt)
                 .let { Boss(it[0], it[1], it[2]) }
         }
-
     }
 
     data class Player(

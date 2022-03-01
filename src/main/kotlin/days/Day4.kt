@@ -6,6 +6,7 @@ package days
     date = Date(day = 4, year = 2015)
 )
 class Day4(private val secret: String) : Puzzle {
+
     override fun partOne() =
         generateSequence(0) { it.plus(1) }
             .first { it.findMD5WithPrefix("00000") }

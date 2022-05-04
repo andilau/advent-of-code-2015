@@ -63,10 +63,10 @@ object Runner {
             val d1 = async { measureTimedValue { puzzle.partOne() } }
             val d2 = async { measureTimedValue { puzzle.partTwo() } }
             with(d1.await()) {
-                println("Part 1: $value   (${duration})")
+                println("Part 1: $value   ($duration)")
             }
             with(d2.await()) {
-                println("Part 2: $value   (${duration})")
+                println("Part 2: $value   ($duration)")
             }
         }
     }

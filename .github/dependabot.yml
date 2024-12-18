@@ -11,3 +11,10 @@ updates:
       interval: "weekly"
     assignees:
       - "andilau"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+    assignees:
+      - "andilau"
